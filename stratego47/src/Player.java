@@ -53,6 +53,8 @@ public class Player {
 		pieces.add("Bom");
 		pieces.add("Fla");// #NA == 1
 
+		Collections.shuffle(pieces); // randomize
+
 	}
 
 	public void remove(String piece)
@@ -85,6 +87,17 @@ public class Player {
 		return new Move(fromRow,fromColumn,toRow,toColumn);
 
 	}
+	
+	public boolean hasntVisited[][] = new boolean[10][10];
+
+	public void clearVisited()
+	{
+		for (int r=0; r<10; r++)
+			for (int c=0; c<10; c++)
+				hasntVisited[r][c] = true;
+	}
+	
+	
 	public static void main(String[] args) {
 
 	}

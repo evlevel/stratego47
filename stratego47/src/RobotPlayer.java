@@ -16,6 +16,7 @@ public class RobotPlayer extends Player
 	/**
 	 * Generates random move, based on free space in board
 	 */
+	
 	public Move promptForMove(GameBoard gboard)
 	{
 		// while (not done) {
@@ -29,9 +30,10 @@ public class RobotPlayer extends Player
 			// search for piece in gboard.board
 
 			for (int r = 0; r < 10; r++)
+			{
 				for (int c = 0; c < 10; c++)
 				{
-					if (piece.equals(gboard.board[r][c]))
+					if (hasntVisited[r][c] && piece.equals(gboard.board[r][c]))
 					{
 						if (gboard.colors[r][c] == color)
 						{
@@ -39,6 +41,8 @@ public class RobotPlayer extends Player
 							 * if the randomly found piece is found at row/
 							 * column location then...
 							 */
+							hasntVisited[r][c] = false;
+							
 							int inc;
 							if (color == 1) // color 1 moves down, increasing r)
 							{
@@ -53,67 +57,19 @@ public class RobotPlayer extends Player
 								inc = -inc;
 
 							Move move = new Move(r, c, r + inc, c);
-							// StdOut.println("Robot will make random move: " +
-							// move);
-							// StdOut.println("-------------------------------------------------"
-							// + "\n");
-							//
-							//
-							// StdOut.println("Robot makes random move: " + move);
-							//
+
 							return move;
 						}
 
-						/**
-						 * Adding this if/else statement increases captures but
-						 * // * allows pieces to capture its own color //
-						 */
-						// else if (gboard.board[r + inc][c] !=null ||
-						// gboard.colors[r + inc][c] != color)
-						// {
-						// Move move = new Move(r, c, r + inc, c);
-						// StdOut.println("Robot will make random move: " +
-						// move);
-						// StdOut.println("-------------------------------------------------"
-						// + "\n");
-						//
-						// StdOut.println("Robot makes random move: " + move);
-						//
-						// return move;
-						// }
-						// /**
-						// * Eric, these will two if statements will never be
-						// implemented,
-						// * but I am using them as a guide to work on how to
-						// increment left/right
-						// * for column to column randomized moves.
-						// */
-						// //column +1
-						// if (gboard.board[r + inc][c] == null ||
-						// gboard.colors[r + inc][c] != color)
-						// {
-						// Move move = new Move(r, c, r, c + inc);
-						// StdOut.println("Robot makes random move: " + move);
-						// StdOut.println("-------------------------------------------------"
-						// + "\n");
-						//
-						// return move;
-						// }
-						// //column -1
-						// if (gboard.board[r + inc][c] == null ||
-						// gboard.colors[r + inc][c] != color)
-						// {
-						// Move move = new Move(r, c, r, c - inc);
-						// StdOut.println("Robot makes random move: " + move);
-						// StdOut.println("-------------------------------------------------"
-						// + "\n");
-						//
-						// return move;
-						// }
-
 					}
 				}
+			}
+			
+			clearVisited();
+			return new Move (0,0,0,0); // invalid, but will allow more random Move
 		}
+		
+
 	}
 	// find the square (row,col) it sits on
 	// check if this piece can be moved forward legally

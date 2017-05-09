@@ -298,8 +298,8 @@ public class GameBoard
 
 			this.printBoard();			
 			
-			StdOut.print("ENTER to continue:");
-			StdIn.readLine();
+//			StdOut.print("ENTER to continue:");
+//			StdIn.readLine();
 
 			/**
 			 * print move before making move?
@@ -307,6 +307,8 @@ public class GameBoard
 			// StdOut.println("Robot makes random move: " + theMove);
 
 			Move aMove = null;
+			
+			players[movesNext-1].clearVisited(); // used to avoid loops in generating random moves
 			
 			do
 			{
@@ -323,6 +325,11 @@ public class GameBoard
 			else
 				movesNext = 1;
 		}
+		
+		StdOut.println("Final piece count: ");
+		StdOut.println("Player 1: " + players[0].pieces.size());
+		StdOut.println("Player 2: " + players[1].pieces.size());
+		
 	}
 
 }
